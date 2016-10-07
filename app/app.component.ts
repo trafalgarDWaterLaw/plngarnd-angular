@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {OnePiece} from './onepiece.component';
+import {OnePiece} from './onepiece';
 
 const Heroes: OnePiece[] = [
     {id: 11, name: "Luffy"},
@@ -20,14 +20,7 @@ const Heroes: OnePiece[] = [
                <span class="badge">{{hero.id}}</span> {{hero.name}}
                </li>
                </ul>
-               <div *ngIf="selectedCrewMember">
-               <h2>{{selectedCrewMember.name}} detail's</h2>
-               <div><label>Id: </label> {{selectedCrewMember.id}}</div>
-               <div>
-               <label>name: </label>
-               <input [(ngModel)]="selectedCrewMember.name" placeholder="name"/>
-               </div>
-               </div>
+               <my-op-details  [hero]="selectedCrewMember"></my-op-details>
                 ` ,
     styles: [`
   .selected {
