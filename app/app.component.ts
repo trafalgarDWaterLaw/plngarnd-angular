@@ -1,17 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {OnePiece} from './onepiece';
+import {OnePieceService} from './onepiece.service';
 
-const Heroes: OnePiece[] = [
-    {id: 11, name: "Luffy"},
-    {id: 12, name: "Zoro"},
-    {id:13, name:"Sanji"},
-    {id:14, name:"Nami"},
-    {id:15, name:"Usopp"},
-    {id:16, name:"Chopper"},
-    {id:17, name:"Robin"},
-    {id:18, name:"Franky"},
-    {id:19, name:"Brook"}
-];
+
 @Component({
     selector: 'my-app',
     template: `<h1>{{title}}</h1>
@@ -70,15 +61,26 @@ const Heroes: OnePiece[] = [
     margin-right: .8em;
     border-radius: 4px 0 0 4px;
   }
-`]
+`],
+providers: [OnePieceService]
 })
-export class AppComponent { 
-    heroes:OnePiece[] =  Heroes;
-    selectedCrewMember:OnePiece; 
-    title: string = "Straw hats";
+export class AppComponent implements OnInit{ 
+  heroes:OnePiece[] = [];
+  constructor(private onepiece_service:OnePieceService){
+  }
 
-    eventCall(hero:OnePiece): void {
-        this.selectedCrewMember = hero;
-    }
+  getOPCharacter(): void{
+    this.onepiece_service.getCharacters().then(promiseResolved => this.heroes = promiseResolved);
+  }
+  selectedCrewMember:OnePiece; 
+  title: string = "Straw hats";
+    
+  ngOnInit(): void {
+  this.getOPCharacter();
+  }
+
+  eventCall(hero:OnePiece): void {
+      this.selectedCrewMember = hero;
+  }
 }
 
