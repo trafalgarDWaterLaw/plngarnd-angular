@@ -8,4 +8,9 @@ export class OnePieceService{
         return Promise.resolve(Heroes);
     }
 
+    getHero(id: number): Promise<OnePiece> {
+  return this.getCharacters()
+             .then(heroes => heroes.find(hero => hero.id === id));
+    }
+
 } 
